@@ -12,7 +12,8 @@ class Book extends Model
         'description',
         'rating',
         'cover',
-        'comment'
+        'comment',
+        'books_category_id'
     ];
     public $timestamps = false;
     public function getCategory() {

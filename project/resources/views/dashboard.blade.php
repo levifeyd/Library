@@ -14,8 +14,7 @@
                 <div class="container mt-6">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="#" class="btn btn-success mb-4">Add new post</a>
-                            <ul id="requests-list">
+                            <a href="{{ route('add-book') }}" class="btn btn-success mb-4">Add new book</a>
                                 <div class="card mb-4">
                                     <h8 class="card-header">Заявка №</h8>
                                     <h8 class="card-header">Категория:</h8>
