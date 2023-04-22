@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
@@ -18,6 +16,6 @@ class Book extends Model
     ];
     public $timestamps = false;
     public function getCategory() {
-        return $this->belongsTo(BooksCategroy::class, 'books_category_id');
+        return $this->belongsTo(BooksCategory::class, 'books_category_id');
     }
 }
