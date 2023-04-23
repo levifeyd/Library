@@ -23,6 +23,14 @@
                                 <h8 class="card-header">Описание: {{ $book->description }}</h8>
                                     <p>Обложка книги : </p>
                                     <img src="/storage/covers/{{$book->cover}}" width="100">
+                                <div class="card-body">
+                                    <a href="{{route('edit-book', $book->id)}}" class="btn btn-primary">Редактировать книгу</a>
+                                    <form action="{{route('delete-book', $book->id)}}" method="post" style="display: inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

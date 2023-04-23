@@ -18,10 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -30,6 +26,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('add-book', [\App\Http\Controllers\BookController::class, 'create'])->name('add-book');
     Route::post('store-book', [\App\Http\Controllers\BookController::class, 'store'])->name('store-book');
+
+    Route::get('edit-book/{id}', [\App\Http\Controllers\BookController::class, 'edit'])->name('edit-book');
+    Route::put('update-book/{id}', [\App\Http\Controllers\BookController::class, 'update'])->name('update-book');
+    Route::delete('delete-book/{id}', [\App\Http\Controllers\BookController::class, 'delete'])->name('delete-book');
 
 });
 
