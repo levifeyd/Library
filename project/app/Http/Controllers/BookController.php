@@ -9,7 +9,10 @@ use Illuminate\Http\Request;
 class BookController extends Controller
 {
     public function index() {
-
+        $books= Book::all();
+        return view('dashboard',[
+            'books'=>$books,
+        ]);
     }
 
     public function create() {
@@ -34,7 +37,7 @@ class BookController extends Controller
         $input = $request->all();
         $input['books_category_id'] = $booksCategory;
 //        dd($request->file("cover"));
-        $input['cover'] = str_replace("public/covers", "", $request->file("cover")->store("storage/app/public/covers"));
+        $input['cover'] = str_replace("public/covers", "", $request->file("cover")->store("public/covers"));
 
         Book::query()->create($input);
         return redirect()->back()->with('status','Book added!');

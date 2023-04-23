@@ -1,7 +1,8 @@
 <x-app-layout>
-    <div class="container mt-6">
+    <h1 style="text-align: center; font-size: large; margin-top: 10px">Пожалуйста заполните поля для создания новой книги в библиотеке</h1>
+    <div class="container mt-18">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 @if(session('status'))
                     <div class="alert alert-success">
                         {{session('status')}}
@@ -19,7 +20,7 @@
                 <form enctype="multipart/form-data" method="POST" action="{{ route('store-book') }}">
                     @csrf
                     <div class="form-group">
-                        <label for="exampleInputEmail">Title</label>
+                        <label for="exampleInputEmail">Введите название книги</label>
                         <input name="title" type="text" class="form-control" id="exampleInputEmail">
                     </div>
                     <div class="form-group">
@@ -27,15 +28,15 @@
                         <input name="slug" type="text" class="form-control" id="exampleInputEmail">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail">Author</label>
+                        <label for="exampleInputEmail">Введите автора книги</label>
                         <input name="author" type="text" class="form-control" id="exampleInputEmail">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail">Description</label>
-                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                        <label for="exampleInputEmail">Введите описание книги</label>
+                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail">Rating</label>
+                        <label for="exampleInputEmail">Выберите рейтинг книги от (1-10)</label>
                         <input name="rating" type="number" class="form-control" id="exampleInputEmail">
                     </div>
                     <input name="cover" type="file" class="w-full h-12" placeholder="Пожалуйста загрузите обложку книги" />
@@ -46,7 +47,7 @@
                             <option value="Фэнтези">Фэнтези</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </form>
             </div>
         </div>
