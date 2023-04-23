@@ -21,10 +21,8 @@
                                 <h8 class="card-header">Название книги: {{ $book->title }}</h8>
                                 <h8 class="card-header">Категория: {{ $book->getCategory->title }}</h8>
                                 <h8 class="card-header">Описание: {{ $book->description }}</h8>
-\                                @if(isset($request->photo))
                                     <p>Обложка книги : </p>
-                                    <img src="/storage/posts/{{$book->cover}}" width="100">
-                                @endif
+                                    <img src="/storage/covers/{{$book->cover}}" width="100">
                             </div>
                         </div>
                     </div>
