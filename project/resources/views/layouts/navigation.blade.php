@@ -13,7 +13,13 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Библиотека') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('books_categories.index')" :active="request()->routeIs('books_categories.index')">
+                        {{ __('Категории книг') }}
+                    </x-nav-link>
+                    <x-nav-link>
+                        {{ __('Сотрудники') }}
                     </x-nav-link>
                 </div>
             </div>

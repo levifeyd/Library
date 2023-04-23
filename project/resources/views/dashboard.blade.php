@@ -4,12 +4,12 @@
             {{ __('Добро пожаловать в электронную библиотеку') }}
         </h2>
     </x-slot>
-    <a href="{{ route('add-book') }}" class="btn btn-success mb-4 ml-24 mt-6">Добавить новую книгу</a>
     @if (session('status'))
         <div class="alert alert-success mt-4">
             {{ session('status') }}
         </div>
     @endif
+    <a href="{{ route('add-book') }}" class="btn btn-success mb-4 ml-24 mt-6">Добавить новую книгу</a>
     @foreach($books as $book)
     <div class="py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -28,7 +28,7 @@
                                     <form action="{{route('delete-book', $book->id)}}" method="post" style="display: inline-block">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <button type="submit" class="btn btn-danger">Удалить кингу</button>
                                     </form>
                                 </div>
                             </div>

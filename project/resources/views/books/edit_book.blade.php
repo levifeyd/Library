@@ -17,7 +17,8 @@
                         </ul>
                     </div>
                 @endif
-                <form enctype="multipart/form-data" method="POST" action="{{ route('store-book') }}">
+                <form enctype="multipart/form-data" method="POST" action="{{ route('update-book', $book->id) }}">
+                    @method('PUT')
                     @csrf
                     <div class="form-group">
                         <label for="exampleInputEmail">Введите название книги</label>
@@ -41,13 +42,14 @@
                     </div>
                     <input name="cover" type="file" class="w-full h-12" placeholder="Пожалуйста загрузите обложку книги" />
                     <div class="form-group">
-                        <label for="exampleFormControlSelect2">Категория заявки</label>
+                        <label for="exampleFormControlSelect2">Категория книги</label>
                         <select name="books_category_id" class="form-control" id="exampleFormControlSelect2">
-                            <option value="Научная фантастика">Научная фантастика</option>
-                            <option value="Фэнтези">Фэнтези</option>
+                            @foreach($bookCategories as $bookCategory)
+                                <option value="{{$bookCategory->id}}">{{$bookCategory->title}}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success">Отправить</button>
                 </form>
             </div>
         </div>

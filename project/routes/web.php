@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::put('update-book/{id}', [\App\Http\Controllers\BookController::class, 'update'])->name('update-book');
     Route::delete('delete-book/{id}', [\App\Http\Controllers\BookController::class, 'delete'])->name('delete-book');
 
+    Route::resource('books_categories',\App\Http\Controllers\BooksCategoryController::class);
 });
 
 

@@ -43,8 +43,9 @@
                     <div class="form-group">
                         <label for="exampleFormControlSelect2">Категория заявки</label>
                         <select name="books_category_id" class="form-control" id="exampleFormControlSelect2">
-                            <option value="Научная фантастика">Научная фантастика</option>
-                            <option value="Фэнтези">Фэнтези</option>
+                            @foreach($bookCategories as $bookCategory)
+                                <option value="{{$bookCategory->id}}">{{$bookCategory->title}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <button type="submit" class="btn btn-success">Submit</button>
