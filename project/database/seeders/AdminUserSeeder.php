@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 
-class RoleSeeder extends Seeder
+class AdminUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,14 +15,11 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::query()->create([
-            'name' => 'worker',
-        ]);
-        $role = Role::query()->create([
-            'name' => 'reader',
-        ]);
-        $role = Role::query()->create([
+        $user = User::query()->create([
             'name'=>'admin',
+            'email' => 'admin@domain.com',
+            'password' => bcrypt('qweasdzxc'),
         ]);
+        $user->assignRole('admin');
     }
 }
