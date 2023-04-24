@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\BooksCategory;
+use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
@@ -31,14 +33,21 @@ class BookController extends Controller
             "cover"=>'required',
             "books_category_id"=>'required',
         ]);
-
-//        $booksCategory = BooksCategory::query()
-//            ->where('title', $request->get('books_category_id'))->first()['id'];
         $input = $request->all();
-//        $input['books_category_id'] = $booksCategory;
         $input['cover'] = str_replace("public/covers", "", $request->file("cover")->store("public/covers"));
         Book::query()->create($input);
         return redirect()->back()->with('status','Book added!');
+    }
+    public function show($id)
+    {
+        $book = Book::query()->findOrFail($id);
+        $commentsIds = DB::table('books_comments')->where('book_id', $id)
+            ->pluck('comment_id')->toArray();
+        $comments = Comment::query()->whereIn('id', $commentsIds)->get();
+        return view('books.show',[
+            'book'=>$book,
+            'comments'=>$comments
+        ]);
     }
 
     public function edit($id) {
@@ -59,10 +68,7 @@ class BookController extends Controller
             "cover"=>'required',
             "books_category_id"=>'required',
         ]);
-//        $booksCategory = BooksCategory::query()
-//            ->where('title', $request->get('books_category_id'))->first()['id'];
         $input = $request->all();
-//        $input['books_category_id'] = $booksCategory;
         $input['cover'] = str_replace("public/covers", "", $request->file("cover")->store("public/covers"));
 
         $book = Book::query()->findOrFail($id);
@@ -74,7 +80,14 @@ class BookController extends Controller
         $book = Book::query()->findOrFail($id);
         $book->delete();
         Storage::disk('public')->delete('covers'.$book->cover);
-
         return redirect()->route('dashboard')->with('status','Book deleted!');
+    }
+    public function commentBook($id, Request $request) {
+        $request->validate(['text'=>'required']);
+        $book = Book::query()->findOrFail($id);
+        $comment = Comment::query()->create($request->all())->pluck('id')->toArray();
+        $commentId = end($comment);
+        $books_comment = DB::table('books_comments')->insert(['book_id' => $id, 'comment_id' => $commentId]);
+        return redirect()->back()->with('status','Комментарий добавлен!');
     }
 }

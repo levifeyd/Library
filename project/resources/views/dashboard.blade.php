@@ -23,10 +23,12 @@
                             <div class="card mb-4">
                                 <h8 class="card-header">Название книги: {{ $book->title }}</h8>
                                 <h8 class="card-header">Категория: {{ $book->getCategory->title }}</h8>
-                                <h8 class="card-header">Описание: {{ $book->description }}</h8>
-                                    <p>Обложка книги : </p>
-                                    <img src="/storage/covers/{{$book->cover}}" width="100">
+                                    <div style="margin-left: 20px">
+                                        <a>Обложка книги : </a>
+                                        <img src="/storage/covers/{{$book->cover}}" width="100">
+                                    </div>
                                 <div class="card-body">
+                                    <a href="{{route('show-book', $book->id)}}" class="btn btn-primary">Посмотреть книгу</a>
                                     <a href="{{route('edit-book', $book->id)}}" class="btn btn-primary">Редактировать книгу</a>
                                     <form action="{{route('delete-book', $book->id)}}" method="post" style="display: inline-block">
                                         @csrf
@@ -42,7 +44,4 @@
         </div>
     </div>
     @endforeach
-{{--    <div>--}}
-{{--        {{ $books->links() }}--}}
-{{--    </div>--}}
 </x-app-layout>

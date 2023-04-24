@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('description');
             $table->integer('rating');
             $table->string('cover');
-            $table->string('comment')->nullable();
             $table->foreignId('books_category_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
