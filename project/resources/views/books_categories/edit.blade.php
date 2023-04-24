@@ -28,7 +28,7 @@
                         <label for="exampleInputEmail">Введите Slug категории</label>
                         <input name="slug" type="text" class="form-control" id="exampleInputEmail"placeholder="{{$bookCategory->slug}}">
                     </div>
-                    <button type="submit" class="btn btn-success">Отправить</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: green">Отправить</button>
                 </form>
             </div>
         </div>

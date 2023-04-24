@@ -23,6 +23,7 @@
             <div class="welcome" style="text-align: center">
                 <h2>Добро пожаловать в систему управления библиотекой</h2>
                 <h3>Пожалуйста пройдите регистрацию или авторизацию</h3>
+                <img src="/storage/covers/knigi_ochki.jpeg" width="400">
             </div>
         </div>
     </body>

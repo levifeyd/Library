@@ -29,14 +29,14 @@
                                     </div>
                                 <div class="card-body">
                                     <a href="{{route('show-book', $book->id)}}" class="btn btn-primary">Посмотреть книгу</a>
-                                    @role('worker')
+                                    @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('worker') )
                                         <a href="{{route('edit-book', $book->id)}}" class="btn btn-primary">Редактировать книгу</a>
                                         <form action="{{route('delete-book', $book->id)}}" method="post" style="display: inline-block">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Удалить кингу</button>
+                                            <button type="submit" class="btn btn-primary" style="background-color: firebrick">Удалить книгу</button>
                                         </form>
-                                    @endrole
+                                    @endif
                                 </div>
                             </div>
                         </div>

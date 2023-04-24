@@ -22,7 +22,7 @@
                         <label for="exampleInputEmail">Напишите комментарий к книге</label>
                         <input name="text" type="text" class="form-control" id="exampleInputEmail">
                     </div>
-                    <button type="submit" class="btn btn-success">Оставить комментарий к книге</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: green">Оставить комментарий к книге</button>
                 </form>
             </div>
         </div>

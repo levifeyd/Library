@@ -22,8 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('dashboard', [\App\Http\Controllers\BookController::class, 'index'])->name('dashboard');
 
+    Route::get('dashboard', [\App\Http\Controllers\BookController::class, 'index'])->name('dashboard');
     Route::get('show-book/{id}', [\App\Http\Controllers\BookController::class, 'show'])->name('show-book');
     Route::get('add-book', [\App\Http\Controllers\BookController::class, 'create'])->name('add-book');
     Route::post('store-book', [\App\Http\Controllers\BookController::class, 'store'])->name('store-book');

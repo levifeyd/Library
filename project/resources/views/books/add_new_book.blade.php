@@ -48,7 +48,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: green">Отправить</button>
                 </form>
             </div>
         </div>

@@ -15,19 +15,16 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Библиотека') }}
                     </x-nav-link>
-                    @role('worker')
+                    @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('worker'))
                         <x-nav-link :href="route('books_categories.index')" :active="request()->routeIs('books_categories.index')">
                             {{ __('Категории книг') }}
                         </x-nav-link>
-                    @endrole
-                    @role('admin')
-                    <x-nav-link :href="route('books_categories.index')" :active="request()->routeIs('books_categories.index')">
-                        {{ __('Категории книг') }}
-                    </x-nav-link>
+                    @endif
+                    @if(Auth::user()->hasRole('admin'))
                     <x-nav-link :href="route('workers.index')" :active="request()->routeIs('workers.index')">
                         {{ __('Сотрудники') }}
                     </x-nav-link>
-                    @endrole
+                    @endif
                 </div>
             </div>
 
@@ -48,7 +45,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Профиль') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -58,7 +55,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Выйти') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
