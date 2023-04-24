@@ -19,9 +19,14 @@
                         <x-nav-link :href="route('books_categories.index')" :active="request()->routeIs('books_categories.index')">
                             {{ __('Категории книг') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('workers.index')" :active="request()->routeIs('workers.index')">
-                            {{ __('Сотрудники') }}
-                        </x-nav-link>
+                    @endrole
+                    @role('admin')
+                    <x-nav-link :href="route('books_categories.index')" :active="request()->routeIs('books_categories.index')">
+                        {{ __('Категории книг') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('workers.index')" :active="request()->routeIs('workers.index')">
+                        {{ __('Сотрудники') }}
+                    </x-nav-link>
                     @endrole
                 </div>
             </div>
