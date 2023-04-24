@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BooksCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
-use function GuzzleHttp\Promise\all;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
-class BooksCategoryController extends Controller
+class WorkerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +16,10 @@ class BooksCategoryController extends Controller
      */
     public function index()
     {
-        $booksCategories = BooksCategory::all();
-        return view('books_categories.index',[
-            'booksCategories'=>$booksCategories,
-        ]);
+        $workersIds = DB::table('model_has_roles')->where('role_id', 1)
+            ->pluck('model_id')->toArray();
+        $workers = User::query()->whereIn('id', $workersIds)->get();
+        return view('workers.index')->with(['workers'=>$workers]);
     }
 
     /**
@@ -28,7 +29,7 @@ class BooksCategoryController extends Controller
      */
     public function create()
     {
-        return view('books_categories.create');
+        return view('workers.create');
     }
 
     /**
@@ -40,11 +41,18 @@ class BooksCategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:255',
-            'slug' => 'required|max:255',
+            'name' => 'required|max:255',
+            'email' => 'required|max:255',
+            'password' => 'required|max:255',
         ]);
-        BooksCategory::query()->create($request->all());
-        return redirect()->back()->with('status', 'Категория книг добавлена');
+        $input = $request->all();
+        $password = bcrypt($input['password']);
+        $input['password'] = $password;
+
+        $worker = User::query()->create($input);
+        $worker->assignRole('worker');
+
+        return redirect()->back()->with('status', 'Сотрудник добавлен');
     }
 
     /**
@@ -66,9 +74,9 @@ class BooksCategoryController extends Controller
      */
     public function edit($id)
     {
-        $bookCategory = BooksCategory::query()->findOrFail($id);
-        return view('books_categories.edit')->with([
-            'bookCategory'=>$bookCategory
+        $worker = User::query()->findOrFail($id);
+        return view('workers.edit')->with([
+            'worker'=>$worker
         ]);
     }
 
@@ -82,12 +90,16 @@ class BooksCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|max:255',
-            'slug' => 'required|max:255',
+            'name' => 'required|max:255',
+            'email' => 'required|max:255',
+            'password' => 'required|max:255',
         ]);
-        $bookCategory = BooksCategory::query()->findOrFail($id);
-        $bookCategory->update($request->all());
-        return redirect()->back()->with('status', 'Категория книг изменена!');
+        $bookCategory = User::query()->findOrFail($id);
+        $input = $request->all();
+        $password = bcrypt($input['password']);
+        $input['password'] = $password;
+        $bookCategory->update($input);
+        return redirect()->back()->with('status', 'Данные сотрудника изменены!');
     }
 
     /**
@@ -98,8 +110,9 @@ class BooksCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $bookCategory = BooksCategory::query()->findOrFail($id);
-        $bookCategory->delete();
-        return redirect()->route('books_categories.index')->with('status','Категория книг удалена!');
+        $worker = User::query()->findOrFail($id);
+        $worker->delete();
+        return redirect()->route('workers.index')->with('status','Сотрудник удален!');
+
     }
 }

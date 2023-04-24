@@ -9,7 +9,10 @@
             {{ session('status') }}
         </div>
     @endif
-    <a href="{{ route('add-book') }}" class="btn btn-success mb-4 ml-24 mt-6">Добавить новую книгу</a>
+    <a href="{{ route('add-book') }}" class="btn btn-success mb-4 mt-6" style="margin-left: 160px">Добавить новую книгу</a>
+    <div style="margin-left: 160px;margin-right: 160px">
+        {{ $books->links() }}
+    </div>
     @foreach($books as $book)
     <div class="py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -39,4 +42,7 @@
         </div>
     </div>
     @endforeach
+{{--    <div>--}}
+{{--        {{ $books->links() }}--}}
+{{--    </div>--}}
 </x-app-layout>

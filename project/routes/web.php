@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('delete-book/{id}', [\App\Http\Controllers\BookController::class, 'delete'])->name('delete-book');
 
     Route::resource('books_categories',\App\Http\Controllers\BooksCategoryController::class);
+    Route::resource('workers',\App\Http\Controllers\WorkerController::class);
 });
 
 
