@@ -29,7 +29,7 @@ class BookController extends Controller
             "slug"=>'required|string|',
             "author"=>'required|string|',
             "description"=>'required|string|',
-            "rating"=>'required|integer|',
+            "rating"=>'required|numeric|between:1,10',
             "cover"=>'required',
             "books_category_id"=>'required',
         ]);
