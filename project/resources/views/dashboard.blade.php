@@ -29,12 +29,14 @@
                                     </div>
                                 <div class="card-body">
                                     <a href="{{route('show-book', $book->id)}}" class="btn btn-primary">Посмотреть книгу</a>
-                                    <a href="{{route('edit-book', $book->id)}}" class="btn btn-primary">Редактировать книгу</a>
-                                    <form action="{{route('delete-book', $book->id)}}" method="post" style="display: inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Удалить кингу</button>
-                                    </form>
+                                    @role('worker')
+                                        <a href="{{route('edit-book', $book->id)}}" class="btn btn-primary">Редактировать книгу</a>
+                                        <form action="{{route('delete-book', $book->id)}}" method="post" style="display: inline-block">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Удалить кингу</button>
+                                        </form>
+                                    @endrole
                                 </div>
                             </div>
                         </div>

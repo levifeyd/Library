@@ -15,12 +15,14 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Библиотека') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('books_categories.index')" :active="request()->routeIs('books_categories.index')">
-                        {{ __('Категории книг') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('workers.index')" :active="request()->routeIs('workers.index')">
-                        {{ __('Сотрудники') }}
-                    </x-nav-link>
+                    @role('worker')
+                        <x-nav-link :href="route('books_categories.index')" :active="request()->routeIs('books_categories.index')">
+                            {{ __('Категории книг') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('workers.index')" :active="request()->routeIs('workers.index')">
+                            {{ __('Сотрудники') }}
+                        </x-nav-link>
+                    @endrole
                 </div>
             </div>
 
