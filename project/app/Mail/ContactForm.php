@@ -19,7 +19,7 @@ class ContactForm extends Mailable
 
     public function __construct($formData)
     {
-        $this->formData[0] = $formData;
+        $this->formData['name'] = $formData;
     }
 
     /**
@@ -45,15 +45,5 @@ class ContactForm extends Mailable
             view: 'emails.contact_form',
             with: $this->formData,
         );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
-    {
-        return [];
     }
 }

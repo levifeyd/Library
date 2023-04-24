@@ -1,1 +1,1 @@
-<p>New reader is registrated !!!</p>
+<p>New reader {{$name}} is registrated !!!</p>

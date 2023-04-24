@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user->assignRole('reader');
-        $mail = "New reader " . $request->get('name')." is reqistrated!";
+        $mail = $request->get('name');
         Mail::to('second_em@mail.ru')->send(new ContactForm($mail));
 
         event(new Registered($user));
