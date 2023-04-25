@@ -15,15 +15,17 @@
                         @endforeach
                     @endif
                 </div>
-                <form method="POST" action="{{route('update-comment-book', $book->id)}}">
-                    @method('PUT')
-                    @csrf
-                    <div class="form-group">
-                        <label for="exampleInputEmail">Напишите комментарий к книге</label>
-                        <input name="text" type="text" class="form-control" id="exampleInputEmail">
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="background-color: green">Оставить комментарий к книге</button>
-                </form>
+                @if(\Illuminate\Support\Facades\Auth::user()->hasRole('reader'))
+                    <form method="POST" action="{{route('update-comment-book', $book->id)}}">
+                        @method('PUT')
+                        @csrf
+                        <div class="form-group">
+                            <label for="exampleInputEmail">Напишите комментарий к книге</label>
+                            <input name="text" type="text" class="form-control" id="exampleInputEmail">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="background-color: green">Оставить комментарий к книге</button>
+                    </form>
+                @endif
             </div>
         </div>
     </div>
