@@ -1,3 +1,4 @@
+=========Пакеты который использовал в проекте========
 1. composer require laravel/breeze 
 2. php artisan breeze:install
  -blade
