@@ -22,3 +22,4 @@
 ![Main view](screenshots/admin_worker_CRUD.png)
 # Окно с уведомление об удалении книги
 ![Main view](screenshots/delete_alert_for_books.png)
+# Для подпробного ознакомления установить проект по инструкции, которая была указана ранее.
