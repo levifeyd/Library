@@ -1,0 +1,23 @@
+1. composer require laravel/breeze 
+2. php artisan breeze:install
+ -blade
+4. npm install
+5. npm run dev
+6. composer require spatie/laravel-permission
+7. php artisan storage:link
+======Для запуска проекта=======
+1. composer install
+2. npm install
+3.npm run build
+3. npm run dev
+4. copy env. and write rules for db
+5. php artisan migrate
+6. php artisan db:seed --class=RoleSeeder 
+7. php artisan db:seed --class=UserSeeder
+8. php artisan db:seed --class=AdminUserSeeder
+9. php artisan db:seed --class=BooksCategorySeeder
+10.php artisan db:seed --class=BooksSeeder
+11. php artisan storage:link
+12. copy dir covers to storage/app/public/
+
+
