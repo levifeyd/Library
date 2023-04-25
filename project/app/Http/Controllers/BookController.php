@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class BookController extends Controller
 {
     public function index() {
-        $books = Book::paginate(3);
+        $books = Book::paginate(10);
         return view('dashboard',[
             'books'=>$books,
         ]);
@@ -36,7 +36,7 @@ class BookController extends Controller
         $input = $request->all();
         $input['cover'] = str_replace("public/covers", "", $request->file("cover")->store("public/covers"));
         Book::query()->create($input);
-        return redirect()->back()->with('status','Book added!');
+        return redirect()->back()->with('status','Книга добавлена!');
     }
     public function show($id)
     {
@@ -73,14 +73,14 @@ class BookController extends Controller
 
         $book = Book::query()->findOrFail($id);
         $book->update($input);
-        return redirect()->back()->with('status','Book updated!');
+        return redirect()->back()->with('status','Данные книги изменены!');
     }
 
     public function delete($id) {
         $book = Book::query()->findOrFail($id);
         $book->delete();
         Storage::disk('public')->delete('covers'.$book->cover);
-        return redirect()->route('dashboard')->with('status','Book deleted!');
+        return redirect()->route('dashboard')->with('status','Книга удалена!');
     }
     public function commentBook($id, Request $request) {
         $request->validate(['text'=>'required']);

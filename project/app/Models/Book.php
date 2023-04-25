@@ -12,7 +12,6 @@ class Book extends Model
         'description',
         'rating',
         'cover',
-        'comment',
         'books_category_id'
     ];
     public $timestamps = false;

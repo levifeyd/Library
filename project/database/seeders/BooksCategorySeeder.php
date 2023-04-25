@@ -20,5 +20,13 @@ class BooksCategorySeeder extends Seeder
             'title'=>'Научная фантастика',
             'slug'=>'Slug 1',
         ]);
+        $bookCategory = BooksCategory::query()->create([
+            'title'=>'Фэнтези',
+            'slug'=>'Slug 2',
+        ]);
+        $bookCategory = BooksCategory::query()->create([
+            'title'=>'Романы',
+            'slug'=>'Slug 3',
+        ]);
     }
 }

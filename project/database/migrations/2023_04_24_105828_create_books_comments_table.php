@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('books_comments', function (Blueprint $table) {
-            $table->foreignId('book_id')->constrained('books', 'book_id')
+            $table->foreignId('book_id')->constrained('books', 'id')
                 ->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('comment_id')->constrained('comments', 'comment_id')
+            $table->foreignId('comment_id')->constrained('comments', 'id')
                 ->cascadeOnUpdate()->cascadeOnDelete();
         });
     }

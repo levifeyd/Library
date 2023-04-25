@@ -16,8 +16,10 @@ class WorkerController extends Controller
      */
     public function index()
     {
-        $workersIds = DB::table('model_has_roles')->where('role_id', 1)
-            ->pluck('model_id')->toArray();
+        $workersIds = DB::table('model_has_roles')
+            ->where('role_id', 1)
+            ->pluck('model_id')
+            ->toArray();
         $workers = User::query()->whereIn('id', $workersIds)->get();
         return view('workers.index')->with(['workers'=>$workers]);
     }
@@ -52,7 +54,7 @@ class WorkerController extends Controller
         $worker = User::query()->create($input);
         $worker->assignRole('worker');
 
-        return redirect()->back()->with('status', 'Сотрудник добавлен');
+        return redirect()->back()->with('status', 'Сотрудник добавлен!');
     }
 
     /**
