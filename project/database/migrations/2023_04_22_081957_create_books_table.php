@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('author');
-            $table->string('description');
+            $table->text('description');
             $table->integer('rating');
             $table->string('cover');
             $table->foreignId('books_category_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
