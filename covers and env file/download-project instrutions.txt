@@ -1,3 +1,4 @@
+=========Пакеты который использовал в проекте========
 1. composer require laravel/breeze 
 2. php artisan breeze:install
  -blade
@@ -10,14 +11,15 @@
 2. npm install
 3.npm run build
 3. npm run dev
-4. copy env. and write rules for db
+4. скопировать файл .env и прописат правила для своей базы данных, данные для email не изменять
 5. php artisan migrate
-6. php artisan db:seed --class=RoleSeeder 
+6. Сделать следующие миграции в строгом порядке как указано 
+  php artisan db:seed --class=RoleSeeder
 7. php artisan db:seed --class=UserSeeder
 8. php artisan db:seed --class=AdminUserSeeder
 9. php artisan db:seed --class=BooksCategorySeeder
 10.php artisan db:seed --class=BooksSeeder
 11. php artisan storage:link
-12. copy dir covers to storage/app/public/
+12. Скопировать папку covers в storage/app/public/
 
 
