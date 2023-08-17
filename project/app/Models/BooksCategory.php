@@ -10,7 +10,7 @@ class BooksCategory extends Model
         'slug',
     ];
     public $timestamps = false;
-    public function getBook() {
-        return $this->hasMany(Book::class,'books_category_id');
+    public function books() {
+        return $this->hasMany(Book::class);
     }
 }

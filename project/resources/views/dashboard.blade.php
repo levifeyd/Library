@@ -22,7 +22,7 @@
                         <div class="col-md-12">
                             <div class="card mb-4">
                                 <h8 class="card-header">Название книги: {{ $book->title }}</h8>
-                                <h8 class="card-header">Категория: {{ $book->getCategory->title }}</h8>
+                                <h8 class="card-header">Категория: {{ $book->category->title }}</h8>
                                     <div style="margin-left: 20px">
                                         <a>Обложка книги : </a>
                                         <img src="/storage/covers/{{$book->cover}}" width="100">
