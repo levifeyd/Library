@@ -2,93 +2,63 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookCategoryRequest;
 use App\Models\BooksCategory;
+use App\Repositories\BookCategoryRepository;
+use App\Repositories\BookRepository;
+use App\Services\BookCategoryService;
+use App\Services\BookService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
+use Illuminate\Contracts\View\View;
+use function Symfony\Component\String\b;
 
 class BooksCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function index()
+    private BookService $bookService;
+    private BookCategoryService $bookCategoryService;
+
+    public function __construct()
     {
-        $booksCategories = BooksCategory::all();
+        $this->middleware('auth');
+        $this->bookService = (new BookService(new BookRepository()));
+        $this->bookCategoryService = (new BookCategoryService(new BookCategoryRepository()));
+    }
+
+    public function index(): View
+    {
         return view('books_categories.index',[
-            'booksCategories'=>$booksCategories,
+            'booksCategories'=>$this->bookCategoryService->getAllBooksCategories(),
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function create()
+    public function create(): View
     {
         return view('books_categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Request $request)
+    public function store(BookCategoryRequest $request): RedirectResponse
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'slug' => 'required|max:255',
-        ]);
-        BooksCategory::query()->create($request->all());
+        $this->bookCategoryService->store($request);
         return redirect()->back()->with('status', 'Категория книг добавлена');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function edit($id)
+    public function edit(int $id): View
     {
-        $bookCategory = BooksCategory::query()->findOrFail($id);
         return view('books_categories.edit')->with([
-            'bookCategory'=>$bookCategory
+            'bookCategory'=>$this->bookCategoryService->showById($id)
         ]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Request $request, $id)
+    public function update(BookCategoryRequest $request, int $id): RedirectResponse
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'slug' => 'required|max:255',
-        ]);
-        $bookCategory = BooksCategory::query()->findOrFail($id);
-        $bookCategory->update($request->all());
+        $this->bookCategoryService->update($id, $request);
         return redirect()->back()->with('status', 'Категория книг изменена!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        $bookCategory = BooksCategory::query()->findOrFail($id);
-        $bookCategory->delete();
+        $this->bookCategoryService->delete($id);
         return redirect()->route('books_categories.index')->with('status','Категория книг удалена!');
     }
 }

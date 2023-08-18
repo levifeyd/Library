@@ -37,7 +37,7 @@ class BookController extends Controller
         $this->bookService->store($request);
         return redirect()->back()->with('status','Книга добавлена!');
     }
-    public function show($id): View
+    public function show(int $id): View
     {
         $booksWithComment = $this->bookService->showBookWithCommentsById($id);
         return view('books.show',[
@@ -46,23 +46,23 @@ class BookController extends Controller
         ]);
     }
 
-    public function edit($id): View {
+    public function edit(int $id): View {
         return view("books.edit_book",[
             "book"=>$this->bookService->showById($id),
             "bookCategories"=>$this->bookCategoryService->getAllBooksCategories(),
         ]);
     }
-    public function update($id, BookStoreRequest $request): RedirectResponse
+    public function update(int $id, BookStoreRequest $request): RedirectResponse
     {
         $this->bookService->update($id, $request);
         return redirect()->back()->with('status','Данные книги изменены!');
     }
 
-    public function delete($id):RedirectResponse {
+    public function delete(int $id):RedirectResponse {
         $this->bookService->delete($id);
         return redirect()->route('dashboard')->with('status','Книга удалена!');
     }
-    public function commentBook($id, CommentRequest $request):RedirectResponse {
+    public function commentBook(int $id, CommentRequest $request):RedirectResponse {
         $this->bookService->commentBook($id, $request);
         return redirect()->back()->with('status','Комментарий добавлен!');
     }
