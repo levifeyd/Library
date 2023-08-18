@@ -22,30 +22,34 @@
                     @csrf
                     <div class="form-group">
                         <label for="exampleInputEmail">Введите название книги</label>
-                        <input name="title" type="text" class="form-control" id="exampleInputEmail" placeholder="{{$book->title}}">
+                        <input name="title" type="text" class="form-control" id="exampleInputEmail" value="{{$book->title}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Slug</label>
-                        <input name="slug" type="text" class="form-control" id="exampleInputEmail"placeholder="{{$book->slug}}">
+                        <input name="slug" type="text" class="form-control" id="exampleInputEmail" value="{{$book->slug}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Введите автора книги</label>
-                        <input name="author" type="text" class="form-control" id="exampleInputEmail"placeholder="{{$book->author}}">
+                        <input name="author" type="text" class="form-control" id="exampleInputEmail" value="{{$book->author}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Введите описание книги</label>
-                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
+                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="6">{{$book->description}}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Выберите рейтинг книги от (1-10)</label>
-                        <input name="rating" type="number" class="form-control" id="exampleInputEmail">
+                        <input name="rating" type="number" class="form-control" id="exampleInputEmail" value="{{$book->rating}}">
                     </div>
                     <input name="cover" type="file" class="w-full h-12" placeholder="Пожалуйста загрузите обложку книги" />
                     <div class="form-group">
                         <label for="exampleFormControlSelect2">Категория книги</label>
                         <select name="books_category_id" class="form-control" id="exampleFormControlSelect2">
                             @foreach($bookCategories as $bookCategory)
+                                @if($book->category->title == $bookCategory->title)
+                                    <option value="{{$bookCategory->id}}" selected>{{$bookCategory->title}}</option>
+                                @else
                                 <option value="{{$bookCategory->id}}">{{$bookCategory->title}}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
