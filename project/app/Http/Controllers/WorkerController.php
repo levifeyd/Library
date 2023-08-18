@@ -2,119 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\WorkerRequest;
 use App\Models\User;
+use App\Repositories\UserRepository;
+use App\Services\WorkerService;
+use Exception;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
 
 class WorkerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function index()
+    private WorkerService $workerService;
+
+    public function __construct()
     {
-        $workersIds = DB::table('model_has_roles')
-            ->where('role_id', 1)
-            ->pluck('model_id')
-            ->toArray();
-        $workers = User::query()->whereIn('id', $workersIds)->get();
-        return view('workers.index')->with(['workers'=>$workers]);
+        $this->middleware('auth');
+        $this->workerService = (new WorkerService(new UserRepository()));
+    }
+    public function index(): View
+    {
+        return view('workers.index')->with(['workers'=>$this->workerService->show()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function create()
+    public function create(): View
     {
         return view('workers.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Request $request)
+    public function store(WorkerRequest $request):RedirectResponse
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|max:255',
-            'password' => 'required|max:255',
-        ]);
-        $input = $request->all();
-        $password = bcrypt($input['password']);
-        $input['password'] = $password;
-
-        $worker = User::query()->create($input);
-        $worker->assignRole('worker');
-
+        $this->workerService->store($request);
         return redirect()->back()->with('status', 'Сотрудник добавлен!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function edit(int $id): View|RedirectResponse
     {
-        //
+        try {
+            $worker = $this->workerService->showById($id);
+            return view('workers.edit')->with([
+                'worker'=>$worker
+            ]);
+        } catch (Exception $exception) {
+            return redirect()->route('dashboard')->with('status','Такой категории книг не существует!');
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function edit($id)
+    public function update(WorkerRequest $request, $id):RedirectResponse
     {
-        $worker = User::query()->findOrFail($id);
-        return view('workers.edit')->with([
-            'worker'=>$worker
-        ]);
+        try {
+            $this->workerService->update($id, $request);
+            return redirect()->back()->with('status', 'Данные сотрудника изменены!');
+        } catch (Exception $exception) {
+            return redirect()->back()->with('status','Такого сотрудника не существует!');
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Request $request, $id)
+    public function destroy($id):RedirectResponse
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|max:255',
-            'password' => 'required|max:255',
-        ]);
-        $bookCategory = User::query()->findOrFail($id);
-        $input = $request->all();
-        $password = bcrypt($input['password']);
-        $input['password'] = $password;
-        $bookCategory->update($input);
-        return redirect()->back()->with('status', 'Данные сотрудника изменены!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy($id)
-    {
-        $worker = User::query()->findOrFail($id);
-        $worker->delete();
-        return redirect()->route('workers.index')->with('status','Сотрудник удален!');
-
+        try {
+            $this->workerService->delete($id);
+            return redirect()->route('workers.index')->with('status','Сотрудник удален!');
+        } catch (Exception $e) {
+            return redirect()->route('workers.index')->with('status','Такого сотрудника не сущесвтует!');
+        }
     }
 }

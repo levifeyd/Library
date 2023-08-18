@@ -6,6 +6,7 @@ use App\Http\Requests\BookStoreRequest;
 use App\Http\Requests\CommentRequest;
 use App\Repositories\BookRepository;
 use App\Repositories\CommentRepository;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -45,15 +46,31 @@ class BookService
         $this->bookRepository->updateById($id, $input);
     }
 
+    /**
+     * @throws Exception
+     */
     public function delete($id):void {
         $book = $this->bookRepository->getById($id);
-        Storage::disk('public')->delete('covers'.$book->cover);
-        $book->delete();
+        if(!$book) {
+            Storage::disk('public')->delete('covers'.$book->cover);
+            $book->delete();
+        } else {
+            throw new Exception();
+        }
     }
 
-    public function commentBook($id, CommentRequest $request) {
+    /**
+     * @throws Exception
+     */
+    public function commentBook($id, CommentRequest $request): void {
         $book = $this->bookRepository->getById($id);
-        $comment = (new CommentRepository())->create($request->all());
-        $book->comments()->attach([$comment->id]);
+        if (!$book) {
+            $comment = (new CommentRepository())->create($request->all());
+            $book->comments()->attach([$comment->id]);
+        } else {
+            throw new Exception();
+        }
+
+
     }
 }

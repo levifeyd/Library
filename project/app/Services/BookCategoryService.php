@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\BookCategoryRequest;
 use App\Repositories\BookCategoryRepository;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,10 +29,15 @@ class BookCategoryService
         $this->bookCategoryRepository->updateById($id,$request->all());
     }
 
+    /**
+     * @throws Exception
+     */
     public function delete(int $id): void {
-        try {
-            $this->bookCategoryRepository->deleteById($id);
-        } catch (\Exception $e) {
+        $bookCategory = $this->bookCategoryRepository->getById($id);
+        if(!$bookCategory) {
+            $bookCategory->delete();
+        } else {
+            throw new Exception();
         }
     }
 

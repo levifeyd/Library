@@ -3,26 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookCategoryRequest;
-use App\Models\BooksCategory;
 use App\Repositories\BookCategoryRepository;
-use App\Repositories\BookRepository;
 use App\Services\BookCategoryService;
-use App\Services\BookService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use function GuzzleHttp\Promise\all;
 use Illuminate\Contracts\View\View;
-use function Symfony\Component\String\b;
 
 class BooksCategoryController extends Controller
 {
-    private BookService $bookService;
     private BookCategoryService $bookCategoryService;
 
     public function __construct()
     {
         $this->middleware('auth');
-        $this->bookService = (new BookService(new BookRepository()));
         $this->bookCategoryService = (new BookCategoryService(new BookCategoryRepository()));
     }
 
@@ -44,21 +37,36 @@ class BooksCategoryController extends Controller
         return redirect()->back()->with('status', 'Категория книг добавлена');
     }
 
-    public function edit(int $id): View
+    public function edit(int $id): View|RedirectResponse
     {
-        return view('books_categories.edit')->with([
-            'bookCategory'=>$this->bookCategoryService->showById($id)
-        ]);
+        try {
+            $bookCategory = $this->bookCategoryService->showById($id);
+            return view('books_categories.edit')->with([
+                'bookCategory'=>$this->bookCategoryService->showById($id)
+            ]);
+        } catch (Exception $exception) {
+            return redirect()->route('dashboard')->with('status','Такой категории книг не существует!');
+        }
     }
     public function update(BookCategoryRequest $request, int $id): RedirectResponse
     {
-        $this->bookCategoryService->update($id, $request);
-        return redirect()->back()->with('status', 'Категория книг изменена!');
+        try {
+            $this->bookCategoryService->update($id, $request);
+            return redirect()->back()->with('status', 'Категория книг изменена!');
+        } catch (Exception $exception) {
+            return redirect()->route('dashboard')->with('status','Такой категории книг не существует!');
+        }
+
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id): RedirectResponse
     {
-        $this->bookCategoryService->delete($id);
-        return redirect()->route('books_categories.index')->with('status','Категория книг удалена!');
+        try {
+            $this->bookCategoryService->delete($id);
+            return redirect()->route('books_categories.index')->with('status','Категория книг удалена!');
+        } catch (Exception $e) {
+            return redirect()->route('books_categories.index')->with('status','Такой категории книг не существует!');
+        }
+
     }
 }
