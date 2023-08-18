@@ -6,6 +6,7 @@
 # Авторизация
 ![Main view](screenshots/log_in.png)
 # Регистрация, только для читаталей, на регистрации устанавливается роль 'reader', после авторизации на почту администратора (second_em@mail.ru) приходит письмо
+* Для этого нужно ввести команду php artisan queue:work - для запуска очередей
 ![Main view](screenshots/auth_for_readers.png)
 ![Main view](screenshots/auth_for_email_page_1.png)
 ![Main view](screenshots/auth_for_email_page_2.png)
