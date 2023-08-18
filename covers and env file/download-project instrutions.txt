@@ -9,17 +9,11 @@
 ======Для запуска проекта=======
 1. composer install
 2. npm install
-3.npm run build
+3. npm run build
 3. npm run dev
-4. скопировать файл .env и прописат правила для своей базы данных, данные для email не изменять
-5. php artisan migrate
-6. Сделать следующие миграции в строгом порядке как указано 
-  php artisan db:seed --class=RoleSeeder
-7. php artisan db:seed --class=UserSeeder
-8. php artisan db:seed --class=AdminUserSeeder
-9. php artisan db:seed --class=BooksCategorySeeder
-10.php artisan db:seed --class=BooksSeeder
-11. php artisan storage:link
-12. Скопировать папку covers в storage/app/public/
+4. скопировать файл .env и прописат правила для своей базы данных, данные для email не изменять( если нужно тестировать отправку mail)
+5. php artisan migrate --seed
+6. php artisan storage:link
+7. Скопировать папку covers в storage/app/public/
 
 
