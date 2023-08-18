@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendEmailJob;
 use App\Mail\ContactForm;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -48,6 +49,7 @@ class RegisteredUserController extends Controller
         $user->assignRole('reader');
         $mail = $request->get('name');
 //        Mail::to('second_em@mail.ru')->send(new ContactForm($mail));
+        SendEmailJob::dispatch($mail);
 
         event(new Registered($user));
 
