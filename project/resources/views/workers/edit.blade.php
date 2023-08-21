@@ -1,5 +1,5 @@
 <x-app-layout>
-    <h1 style="text-align: center; font-size: large; margin-top: 10px">Пожалуйста заполните поля для редактирования сотрудника "{{$worker->name}}" в библиотеке</h1>
+    <h1 class="mt-3 text-xl-center font-semibold">Пожалуйста заполните поля для редактирования сотрудника "{{$worker->name}}" в библиотеке</h1>
     <div class="container mt-18">
         <div class="row">
             <div class="col-md-6">
@@ -22,17 +22,17 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="exampleInputEmail">Введите имя сотрудника</label>
-                        <input name="name" type="text" class="form-control" id="exampleInputEmail" placeholder="{{$worker->name}}">
+                        <input name="name" type="text" class="form-control" id="exampleInputEmail" value="{{$worker->name}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Введите email сотрудника</label>
-                        <input name="email" type="text" class="form-control" id="exampleInputEmail"placeholder="{{$worker->email}}">
+                        <input name="email" type="text" class="form-control" id="exampleInputEmail" value="{{$worker->email}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Введите пароль сотрудника</label>
                         <input name="password" type="text" class="form-control" id="exampleInputEmail">
                     </div>
-                    <button type="submit" class="btn btn-primary bg-success">Отправить</button>
+                    <button type="submit" class="btn btn bg-success text-white">Отправить</button>
                 </form>
             </div>
         </div>

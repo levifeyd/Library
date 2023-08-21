@@ -21,7 +21,7 @@
                             <form action="{{ route('workers.destroy', $worker->id) }}" method="post" style="display: inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-primary" style="background-color: firebrick">Удалить сотрудника</button>
+                                <button type="submit" class="btn bg-danger text-white">Удалить сотрудника</button>
                             </form>
                         </div>
                     </div>
