@@ -31,7 +31,7 @@
                         <label for="exampleInputEmail">Введите slug категории</label>
                         <input name="slug" type="text" class="form-control" id="exampleInputEmail">
                     </div>
-                    <button type="submit" class="btn btn-primary" style="background-color: green">Отправить</button>
+                    <button type="submit" class="btn bg-success text-white">Отправить</button>
                 </form>
             </div>
         </div>

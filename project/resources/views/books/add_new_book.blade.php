@@ -1,8 +1,8 @@
 <x-app-layout>
-    <h1 style="text-align: center; font-size: large; margin-top: 10px">Пожалуйста заполните поля для создания новой книги в библиотеке</h1>
-    <div class="container mt-18">
+    <h1 class="mt-3 text-xl-center font-semibold">Пожалуйста заполните поля для создания новой книги в библиотеке</h1>
+    <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 @if(session('status'))
                     <div class="alert alert-success">
                         {{session('status')}}
@@ -48,7 +48,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="background-color: green">Отправить</button>
+                    <button type="submit"class="btn bg-success text-white">Отправить</button>
                 </form>
             </div>
         </div>

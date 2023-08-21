@@ -1,6 +1,6 @@
 <x-app-layout>
-    <h1 style="text-align: center; font-size: large; margin-top: 10px">Книга "{{$book->title}}"</h1>
-    <div class="container" style="margin-top: 30px">
+    <h1 class="mt-3 text-xl-center font-semibold">Книга "{{$book->title}}"</h1>
+    <div class="container mt-4">
         <div class="row">
             <div class="col-md-6">
                 <div class="card mb-4">
@@ -15,7 +15,7 @@
                         @endforeach
                     @endif
                 </div>
-                @if(\Illuminate\Support\Facades\Auth::user()->hasRole('reader'))
+                @if(auth()->user()->hasRole('reader'))
                     <form method="POST" action="{{route('update-comment-book', $book->id)}}">
                         @method('PUT')
                         @csrf
@@ -23,7 +23,7 @@
                             <label for="exampleInputEmail">Напишите комментарий к книге</label>
                             <input name="text" type="text" class="form-control" id="exampleInputEmail">
                         </div>
-                        <button type="submit" class="btn btn-primary" style="background-color: green">Оставить комментарий к книге</button>
+                        <button type="submit" class="btn bg-success text-white">Оставить комментарий к книге</button>
                     </form>
                 @endif
             </div>

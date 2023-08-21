@@ -32,7 +32,7 @@
                         <label for="exampleInputEmail">Введите пароль сотрудника</label>
                         <input name="password" type="text" class="form-control" id="exampleInputEmail">
                     </div>
-                    <button type="submit" class="btn btn-primary" style="background-color: green">Отправить</button>
+                    <button type="submit" class="btn btn-primary bg-success">Отправить</button>
                 </form>
             </div>
         </div>

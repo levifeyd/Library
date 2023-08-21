@@ -22,7 +22,7 @@
                             <form action="{{ route('books_categories.destroy', $booksCategory->id) }}" method="post" style="display: inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-primary" style="background-color: firebrick">Удалить категорию</button>
+                                <button type="submit" class="btn bg-danger text-white">Удалить категорию</button>
                             </form>
                         </div>
                     </div>

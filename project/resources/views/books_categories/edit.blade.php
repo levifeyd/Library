@@ -1,8 +1,8 @@
 <x-app-layout>
-    <h1 style="text-align: center; font-size: large; margin-top: 10px">Пожалуйста заполните поля для редактирования категории книг "{{$bookCategory->title}}" в библиотеке</h1>
-    <div class="container mt-18">
+    <h1 class="mt-3 text-xl-center font-semibold">Пожалуйста заполните поля для редактирования категории книг "{{$bookCategory->title}}" в библиотеке</h1>
+    <div class="container mt-3">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 @if(session('status'))
                     <div class="alert alert-success">
                         {{session('status')}}
@@ -22,13 +22,13 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="exampleInputEmail">Введите название категории</label>
-                        <input name="title" type="text" class="form-control" id="exampleInputEmail" placeholder="{{$bookCategory->title}}">
+                        <input name="title" type="text" class="form-control" id="exampleInputEmail" value="{{$bookCategory->title}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">Введите Slug категории</label>
-                        <input name="slug" type="text" class="form-control" id="exampleInputEmail"placeholder="{{$bookCategory->slug}}">
+                        <input name="slug" type="text" class="form-control" id="exampleInputEmail" value="{{$bookCategory->slug}}">
                     </div>
-                    <button type="submit" class="btn btn-primary" style="background-color: green">Отправить</button>
+                    <button type="submit" class="btn bg-success text-white">Отправить</button>
                 </form>
             </div>
         </div>
